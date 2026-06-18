@@ -75,6 +75,11 @@ const Login = () => {
             Don't have an account?{" "}
             <RouterLink to="/register">Sign up</RouterLink>
           </div>
+          <div className="auth-footer" style={{ marginTop: "8px" }}>
+            <RouterLink to="/" style={{ color: "var(--text-secondary)", fontSize: "0.875rem" }}>
+              &larr; Back to Home
+            </RouterLink>
+          </div>
         </form>
       </div>
     </div>
