@@ -3,7 +3,7 @@ const {
   successResponse,
   errorResponse,
 } = require("../utils/responseFormatter");
-const { v4: uuidv4 } = require("uuid");
+const { randomUUID } = require("crypto");
 
 // Helper to calculate price
 const calculateAmount = (entryTime, exitTime, pricingRule) => {
@@ -88,7 +88,7 @@ const createEntry = async (req, res, next) => {
       );
     }
 
-    const ticket_number = `TKT-${uuidv4().split("-")[0].toUpperCase()}`;
+    const ticket_number = `TKT-${randomUUID().split("-")[0].toUpperCase()}`;
 
     // Transaction-like approach using RPC or separate queries
     // 1. Mark slot occupied
@@ -213,7 +213,7 @@ const processExit = async (req, res, next) => {
         session_id: session.id,
         amount: totalAmount,
         payment_method,
-        reference_number: `PAY-${uuidv4().split("-")[0].toUpperCase()}`,
+        reference_number: `PAY-${randomUUID().split("-")[0].toUpperCase()}`,
       },
     ]);
 
