@@ -1,33 +1,27 @@
 require('dotenv').config();
-// Trigger nodemon restart to load updated CORS config
 const http = require('http');
 const app = require('./app');
 const logger = require('./utils/logger');
-const { Server } = require('socket.io');
 
 const PORT = process.env.PORT || 5000;
 
-const server = http.createServer(app);
+// Export the Express app for Vercel Serverless Functions
+module.exports = app;
 
-// Initialize Socket.io
-const io = new Server(server, {
-  cors: {
-    origin: process.env.CLIENT_URL || '*',
-    methods: ['GET', 'POST']
-  }
-});
+// Start server locally ONLY if not running in Vercel
+if (!process.env.VERCEL) {
+  const server = http.createServer(app);
+  
+  // Note: WebSockets (socket.io) have been disabled because Vercel Serverless
+  // does not support persistent WebSocket connections.
+  
+  server.listen(PORT, () => {
+    logger.info(`Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
+  });
 
-// Pass io to request object for use in controllers
-app.set('io', io);
-
-require('./sockets/socketHandler')(io);
-
-server.listen(PORT, () => {
-  logger.info(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
-});
-
-// Handle unhandled promise rejections
-process.on('unhandledRejection', (err, promise) => {
-  logger.error(`Error: ${err.message}`);
-  server.close(() => process.exit(1));
-});
+  // Handle unhandled promise rejections
+  process.on('unhandledRejection', (err, promise) => {
+    logger.error(`Error: ${err.message}`);
+    server.close(() => process.exit(1));
+  });
+}

@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { useForm } from "react-hook-form";
 import api from "../../api/axios";
-import { io } from "socket.io-client";
-import { LogOut, CarFront, KeyRound } from "lucide-react";
+import { LogOut, CarFront, KeyRound, RefreshCw } from "lucide-react";
 import toast from "react-hot-toast";
 import ChangePasswordModal from "../../components/ChangePasswordModal";
 import "../../assets/css/Dashboard.css";
@@ -16,7 +15,6 @@ const WorkerDashboard = () => {
     availableSlots: 0,
     locationName: "",
   });
-  const [socket, setSocket] = useState(null);
 
   // Entry Form
   const {
@@ -35,21 +33,6 @@ const WorkerDashboard = () => {
 
   useEffect(() => {
     fetchStats();
-
-    // Connect Socket.io
-    const newSocket = io(
-      import.meta.env.VITE_SOCKET_URL || "http://localhost:5000",
-    );
-    setSocket(newSocket);
-
-    newSocket.on("connect", () => console.log("Socket connected"));
-
-    newSocket.on("slot-updated", (data) => {
-      // Re-fetch stats on slot updates
-      fetchStats();
-    });
-
-    return () => newSocket.close();
   }, []);
 
   const fetchStats = async () => {
@@ -69,6 +52,7 @@ const WorkerDashboard = () => {
       const res = await api.post("/sessions/entry", data);
       setLastTicket(res.data.data);
       resetEntry();
+      fetchStats(); // Update available slots automatically
       toast.success("Ticket generated successfully!");
     } catch (err) {
       toast.error(err.response?.data?.message || "Entry failed");
@@ -98,6 +82,7 @@ const WorkerDashboard = () => {
     alert(`Payment of $${exitSession.amount_due} received. Barrier opening...`);
     setExitSession(null);
     setTicketId("");
+    fetchStats(); // Update available slots automatically after a car leaves
   };
 
   return (
@@ -143,6 +128,14 @@ const WorkerDashboard = () => {
             </p>
           </div>
           <div className="header-actions">
+            <button
+              className="btn-secondary"
+              style={{ padding: "8px", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center" }}
+              onClick={fetchStats}
+              title="Refresh Stats"
+            >
+              <RefreshCw size={18} />
+            </button>
             <span
               style={{
                 display: "flex",
