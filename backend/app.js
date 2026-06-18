@@ -13,7 +13,10 @@ const app = express();
 app.use(helmet());
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || "*",
+    origin: function (origin, callback) {
+      // Dynamically allow any origin (fixes Vercel CORS issues with preview URLs)
+      callback(null, true);
+    },
     credentials: true,
   }),
 );
@@ -40,7 +43,9 @@ app.use(
 
 // Routes
 app.get("/", (req, res) => {
-  res.status(200).json({ success: true, message: "ParkFlow API is running on Vercel!" });
+  res
+    .status(200)
+    .json({ success: true, message: "ParkFlow API is running on Vercel!" });
 });
 
 app.get("/api/health", (req, res) => {
