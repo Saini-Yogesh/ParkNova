@@ -90,50 +90,7 @@
   padding: 8px;
 }
 
-.header-right {
-  position: relative;
-}
 
-.avatar-btn {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: var(--primary-main);
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 600;
-  font-size: 1.1rem;
-}
-
-.profile-menu {
-  position: absolute;
-  top: 100%;
-  right: 0;
-  margin-top: 8px;
-  background-color: var(--bg-paper);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-md);
-  min-width: 150px;
-  padding: 8px 0;
-}
-
-.menu-item {
-  width: 100%;
-  padding: 10px 16px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  color: var(--text-primary);
-  font-size: 0.875rem;
-  text-align: left;
-}
-
-.menu-item:hover {
-  background-color: rgba(255, 255, 255, 0.05);
-}
 
 /* Mobile Overlay */
 .sidebar-overlay {

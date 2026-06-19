@@ -188,8 +188,11 @@ const Dashboard = () => {
           <div className="charts-grid">
             <div className="chart-card">
               <div className="chart-title">Revenue Trend (30 Days)</div>
-              <div className="chart-container" style={{ minHeight: "300px" }}>
-                <ResponsiveContainer width="100%" height={300}>
+              <div
+                className="chart-container"
+                style={{ flexGrow: 1, minHeight: 0 }}
+              >
+                <ResponsiveContainer width="100%" height="100%">
                   <LineChart data={revenueTrend}>
                     <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
                     <XAxis dataKey="date" stroke="#94a3b8" />
@@ -230,7 +233,11 @@ const Dashboard = () => {
                           borderRadius: 6,
                         }}
                       />
-                      <Bar dataKey="activity" fill="#14b8a6" radius={[4, 4, 0, 0]} />
+                      <Bar
+                        dataKey="activity"
+                        fill="#14b8a6"
+                        radius={[4, 4, 0, 0]}
+                      />
                     </BarChart>
                   </ResponsiveContainer>
                 ) : (
@@ -304,8 +311,14 @@ const Dashboard = () => {
                   <PieChart>
                     <Pie
                       data={[
-                        { name: "Occupied", value: summary?.occupiedSlots || 0 },
-                        { name: "Available", value: summary?.availableSlots || 0 },
+                        {
+                          name: "Occupied",
+                          value: summary?.occupiedSlots || 0,
+                        },
+                        {
+                          name: "Available",
+                          value: summary?.availableSlots || 0,
+                        },
                       ]}
                       cx="50%"
                       cy="50%"

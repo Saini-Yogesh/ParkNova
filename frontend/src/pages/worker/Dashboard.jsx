@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { useForm } from "react-hook-form";
 import api from "../../api/axios";
@@ -33,6 +33,8 @@ const WorkerDashboard = () => {
   const [exitSession, setExitSession] = useState(null);
   const [exitLoading, setExitLoading] = useState(false);
   const [passwordModalOpen, setPasswordModalOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const menuRef = useRef(null);
 
   useEffect(() => {
     fetchStats();
@@ -52,6 +54,21 @@ const WorkerDashboard = () => {
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [lastTicket, exitSession]);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setMenuOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const handleLogout = () => {
+    setMenuOpen(false);
+    logout();
+  };
 
   const fetchSlots = async () => {
     try {
@@ -149,26 +166,32 @@ const WorkerDashboard = () => {
         <div className="header-title" style={{ color: "var(--primary-main)" }}>
           ParkFlow Worker Terminal
         </div>
-        <div
-          className="header-actions"
-          style={{ display: "flex", alignItems: "center", gap: "16px" }}
-        >
-          <span>{user.name}</span>
+        <div className="header-right" ref={menuRef}>
           <button
-            className="btn-secondary"
-            style={{ padding: "8px" }}
-            onClick={() => setPasswordModalOpen(true)}
-            title="Change Password"
+            className="avatar-btn"
+            onClick={() => setMenuOpen(!menuOpen)}
           >
-            <KeyRound size={20} />
+            {user?.name?.charAt(0).toUpperCase() || "W"}
           </button>
-          <button
-            className="btn-secondary"
-            style={{ padding: "8px" }}
-            onClick={logout}
-          >
-            <LogOut size={20} />
-          </button>
+
+          {menuOpen && (
+            <div className="profile-menu">
+              <button
+                className="menu-item"
+                onClick={() => {
+                  setMenuOpen(false);
+                  setPasswordModalOpen(true);
+                }}
+              >
+                <KeyRound size={16} />
+                <span>Change Password</span>
+              </button>
+              <button className="menu-item" onClick={handleLogout}>
+                <LogOut size={16} />
+                <span>Logout</span>
+              </button>
+            </div>
+          )}
         </div>
       </header>
 
@@ -183,7 +206,7 @@ const WorkerDashboard = () => {
               {stats.locationName || "Loading..."}
             </p>
           </div>
-          <div className="header-actions">
+          <div style={{ display: "flex", gap: "16px", flexWrap: "wrap", alignItems: "center" }}>
             <button
               className="btn-secondary"
               style={{
@@ -214,14 +237,7 @@ const WorkerDashboard = () => {
               <CarFront size={16} />
               Total Capacity: {stats.totalCapacity}
             </span>
-            <div
-              style={{
-                display: "flex",
-                gap: "8px",
-                flexWrap: "wrap",
-                justifyContent: "flex-end",
-              }}
-            >
+            <div className="worker-categories">
               <span
                 style={{
                   padding: "6px 12px",
@@ -365,7 +381,7 @@ const WorkerDashboard = () => {
             <div style={{ display: "flex", gap: "16px", marginBottom: "24px" }}>
               <input
                 className="form-input"
-                style={{ flexGrow: 1 }}
+                style={{ flexGrow: 1, minWidth: 0 }}
                 placeholder="Enter Ticket ID or License Plate"
                 value={ticketId}
                 onChange={(e) => setTicketId(e.target.value)}

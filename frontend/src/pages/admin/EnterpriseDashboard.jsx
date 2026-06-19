@@ -204,9 +204,9 @@ const EnterpriseDashboard = () => {
           <div className="chart-title">
             Organizational Revenue Trend (30 Days)
           </div>
-          <div className="chart-container">
+          <div className="chart-container" style={{ padding: "0 24px 24px 24px", flexGrow: 1, minHeight: 0 }}>
             {revenueTrend.length > 0 ? (
-              <ResponsiveContainer width="100%" height={300}>
+              <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={revenueTrend}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
                   <XAxis dataKey="date" stroke="#94a3b8" />
@@ -268,7 +268,7 @@ const EnterpriseDashboard = () => {
             style={{ padding: "0 24px 24px 24px", flexGrow: 1, minHeight: 0 }}
           >
             {employees.length > 0 ? (
-              <ResponsiveContainer width="100%" height={300}>
+              <ResponsiveContainer width="100%" height="100%">
                 <BarChart
                   data={employees.slice(0, 5)}
                   layout="vertical"
@@ -331,7 +331,7 @@ const EnterpriseDashboard = () => {
             style={{ padding: "0 24px 24px 24px", flexGrow: 1, minHeight: 0 }}
           >
             {heatmap.length > 0 ? (
-              <ResponsiveContainer width="100%" height={300}>
+              <ResponsiveContainer width="100%" height="100%">
                 <BarChart
                   data={heatmap
                     .slice(0, 7)
