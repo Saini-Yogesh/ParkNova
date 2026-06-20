@@ -31,7 +31,7 @@ const Landing = () => {
   };
 
   return (
-    <div className="landing-container">
+    <main className="landing-container">
       {/* Navbar */}
       <nav className="landing-navbar">
         <div className="landing-logo">
@@ -340,7 +340,7 @@ const Landing = () => {
         </div>
         <p>&copy; {new Date().getFullYear()} ParkFlow Enterprise Systems.</p>
       </footer>
-    </div>
+    </main>
   );
 };
 

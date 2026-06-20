@@ -1,0 +1,8 @@
+# ParkFlow LLM Guide
+
+Welcome to the ParkFlow application. ParkFlow is an enterprise-grade parking lot management system.
+
+## Resources
+- [Main Website](https://parkflow-alpha.vercel.app/)
+- [Documentation](/docs)
+- [API Reference](/api-docs)
