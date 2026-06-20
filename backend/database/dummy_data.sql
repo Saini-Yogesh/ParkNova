@@ -34,7 +34,7 @@ BEGIN
     SELECT id INTO wrk_id FROM users WHERE role = 'WORKER' LIMIT 1;
     IF wrk_id IS NULL THEN
         INSERT INTO users (name, email, password_hash, role, status)
-        VALUES ('John Worker', 'john@parkflow.com', 'dummy_hash_not_used', 'WORKER', 'ACTIVE')
+        VALUES ('John Worker', 'john@parknova.com', 'dummy_hash_not_used', 'WORKER', 'ACTIVE')
         RETURNING id INTO wrk_id;
     END IF;
 

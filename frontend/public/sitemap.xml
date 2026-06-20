@@ -5,19 +5,19 @@
       xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
   <url>
-    <loc>https://parkflow-alpha.vercel.app/</loc>
+    <loc>https://parknova-jade.vercel.app/</loc>
     <lastmod>2026-06-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://parkflow-alpha.vercel.app/login</loc>
+    <loc>https://parknova-jade.vercel.app/login</loc>
     <lastmod>2026-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://parkflow-alpha.vercel.app/register</loc>
+    <loc>https://parknova-jade.vercel.app/register</loc>
     <lastmod>2026-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>

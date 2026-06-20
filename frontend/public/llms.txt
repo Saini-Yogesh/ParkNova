@@ -3,6 +3,6 @@
 Welcome to the ParkNova application. ParkNova is an enterprise-grade parking lot management system.
 
 ## Resources
-- [Main Website](https://parknova-alpha.vercel.app/)
+- [Main Website](https://parknova-jade.vercel.app/)
 - [Documentation](/docs)
 - [API Reference](/api-docs)
