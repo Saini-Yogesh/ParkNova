@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import { useAuth } from "./context/AuthContext";
 import { Toaster } from "react-hot-toast";
+import Landing from "./pages/Landing";
 
 // Lazy load pages for performance optimization
 const Login = React.lazy(() => import("./pages/Login"));
@@ -23,7 +24,7 @@ const WorkerDashboard = React.lazy(() => import("./pages/worker/Dashboard"));
 const EnterpriseDashboard = React.lazy(
   () => import("./pages/admin/EnterpriseDashboard"),
 );
-const Landing = React.lazy(() => import("./pages/Landing"));
+
 
 const ProtectedRoute = ({ children, allowedRoles }) => {
   const { user, loading } = useAuth();
